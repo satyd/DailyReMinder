@@ -15,7 +15,7 @@ class ReMinderViewModel : ViewModel() {
         viewModelScope.launch {
             reminderList.emit(
                 listOf(
-                    Reminder.Birthday("Someone", birthDate = LocalDate.parse("12-12-2014")),
+                    Reminder.Birthday("Someone", birthDate = LocalDate.parse("2014-12-12")),
                     Reminder.Birthday("Xdd", birthDate = LocalDate.now()),
                     Reminder.Event("Sdelats", eventDate = LocalDate.now()),
                 )

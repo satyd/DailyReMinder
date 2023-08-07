@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -24,6 +25,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.loadDataFromDB()
         setContent {
             DailyReMinderTheme {
                 // A surface container using the 'background' color from the theme
@@ -31,7 +33,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier
                         .fillMaxSize()
                         .background(MaterialTheme.colorScheme.background),
-                    floatingActionButton = {},
+                    floatingActionButton = {
+                        FloatingActionButton(onClick = { /*TODO*/ }) {
+                            Text(text = "+")
+                        }
+                    },
                     content = { padding ->
                         padding
                         TabScreen(viewModel)
