@@ -16,30 +16,35 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.ViewModel
+import com.levp.dailyreminder.ReMinderViewModel
 import com.levp.dailyreminder.classes.TabItem
 import com.levp.dailyreminder.ui.calendar.ReMinderCalendar
 import com.levp.dailyreminder.ui.list.ReMinderList
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TabScreen(
-    content: String
+    viewModel: ReMinderViewModel
 ) {
+    val list = viewModel.reminderList.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        //Text(text = content)
+
         val tabs = listOf(
             TabItem(
                 title = "List",
                 icon = Icons.Filled.List,
-                screen = { ReMinderList() }
+                screen = { ReMinderList(list.value) }
             ),
             TabItem(
                 title = "Calendar",
@@ -78,19 +83,3 @@ fun TabScreen(
         }
     }
 }
-
-/*
-HorizontalPager(
-modifier = Modifier.fillMaxSize(),
-state = pagerState,
-pageSpacing = 0.dp,
-userScrollEnabled = true,
-reverseLayout = false,
-contentPadding = PaddingValues(0.dp),
-beyondBoundsPageCount = 0,
-pageSize = PageSize.Fill,
-key = null,
-pageContent = {
-    tabs[pagerState.currentPage].screen()
-}
-)*/

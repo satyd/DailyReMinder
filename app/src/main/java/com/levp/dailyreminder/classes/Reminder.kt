@@ -10,8 +10,8 @@ sealed class Reminder(val date: LocalDate) {
 
     class Event(
         val event: String,
-        val description: String,
-        val time: String,
+        val description: String = "",
+        val time: String = "",
         val eventDate: LocalDate
     ) : Reminder(eventDate)
 }
