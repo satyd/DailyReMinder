@@ -1,4 +1,4 @@
-package com.levp.dailyreminder.classes
+package com.levp.dailyreminder.ui.tabs
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector

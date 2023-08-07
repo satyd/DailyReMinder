@@ -1,4 +1,4 @@
-package com.levp.dailyreminder.ui
+package com.levp.dailyreminder.ui.tabs
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
@@ -20,12 +20,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
 import com.levp.dailyreminder.ReMinderViewModel
-import com.levp.dailyreminder.classes.TabItem
 import com.levp.dailyreminder.ui.calendar.ReMinderCalendar
 import com.levp.dailyreminder.ui.list.ReMinderList
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
