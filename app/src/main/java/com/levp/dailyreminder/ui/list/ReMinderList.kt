@@ -1,18 +1,60 @@
 package com.levp.dailyreminder.ui.list
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material3.Text
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.SnackbarResult
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
-import com.levp.dailyreminder.classes.Reminder
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.levp.dailyreminder.ReMinderViewModel
+import com.levp.dailyreminder.util.UiEvent
 
 @Composable
-fun ReMinderList(list: List<Reminder>) {
-    LazyColumn() {
-        itemsIndexed(list) { index, item ->
-            ListItem(data = item) {
+fun ReMinderList(
+    onNavigate: (UiEvent.Navigate) -> Unit,
+    viewModel: ReMinderViewModel,
+) {
+    val reminders = viewModel.reminders.collectAsState(initial = emptyList())
+    val scaffoldState = rememberScaffoldState()
+    LaunchedEffect(key1 = true) {
+        viewModel.uiEvent.collect { event ->
+            when (event) {
+                is UiEvent.ShowSnackbar -> {
+                    val result = scaffoldState.snackbarHostState.showSnackbar(
+                        message = event.message,
+                        actionLabel = event.action
+                    )
+                    if (result == SnackbarResult.ActionPerformed) {
+                        viewModel.onEvent(ReminderListEvent.OnUndoDeleteClick)
+                    }
+                }
 
+                is UiEvent.Navigate -> onNavigate(event)
+                else -> Unit
             }
+        }
+    }
+    LazyColumn(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        items(reminders.value) { reminder ->
+            ListItem(
+                reminder = reminder,
+                onEvent = viewModel::onEvent,
+                onEdit = {
+                    viewModel.onEvent(ReminderListEvent.OnReminderClick(reminder))
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
         }
     }
 }

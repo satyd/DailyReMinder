@@ -1,4 +1,4 @@
-package com.levp.dailyreminder.classes
+package com.levp.dailyreminder
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

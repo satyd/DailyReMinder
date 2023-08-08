@@ -20,17 +20,20 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.levp.dailyreminder.ReMinderViewModel
 import com.levp.dailyreminder.ui.calendar.ReMinderCalendar
 import com.levp.dailyreminder.ui.list.ReMinderList
+import com.levp.dailyreminder.util.UiEvent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TabScreen(
-    viewModel: ReMinderViewModel
+    onNavigate: (UiEvent.Navigate) -> Unit,
+    viewModel: ReMinderViewModel// = hiltViewModel()
 ) {
-    val list = viewModel.reminderList.collectAsState()
+    //val list = viewModel.reminderList.collectAsState()
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -41,7 +44,12 @@ fun TabScreen(
             TabItem(
                 title = "List",
                 icon = Icons.Filled.List,
-                screen = { ReMinderList(list.value) }
+                screen = {
+                    ReMinderList(
+                        onNavigate = onNavigate,
+                        viewModel = viewModel
+                    )
+                }
             ),
             TabItem(
                 title = "Calendar",
