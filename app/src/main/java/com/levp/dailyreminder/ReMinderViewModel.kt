@@ -1,5 +1,6 @@
 package com.levp.dailyreminder
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.levp.dailyreminder.classes.Reminder
@@ -56,7 +57,8 @@ class ReMinderViewModel @Inject constructor(
                 }
             }
 
-            is ReminderListEvent.OnReminderClick -> {
+            is ReminderListEvent.OnEditReminderClick -> {
+                Log.d("hehe","on edit reminder click reminder = ${event.reminder}")
                 sendUiEvent(
                     UiEvent.Navigate(
                         Routes.EDIT_REMINDER + "?reminderId=${event.reminder.id}"

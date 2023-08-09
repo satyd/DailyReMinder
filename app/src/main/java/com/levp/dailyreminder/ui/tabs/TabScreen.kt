@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.List
@@ -31,6 +32,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun TabScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
+    scaffoldState: ScaffoldState,
     viewModel: ReMinderViewModel// = hiltViewModel()
 ) {
     //val list = viewModel.reminderList.collectAsState()
@@ -47,6 +49,7 @@ fun TabScreen(
                 screen = {
                     ReMinderList(
                         onNavigate = onNavigate,
+                        scaffoldState = scaffoldState,
                         viewModel = viewModel
                     )
                 }

@@ -2,10 +2,13 @@ package com.levp.dailyreminder.ui.list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -22,7 +25,7 @@ import com.levp.dailyreminder.database.ReminderEntity
 fun ListItem(
     reminder: ReminderEntity,
     onEvent: (ReminderListEvent) -> Unit,
-    onEdit: ()-> Unit,
+    onEdit: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -44,16 +47,19 @@ fun ListItem(
                 Text(text = "${reminder.event} в ${reminder.time}")
             }
         }*/
-        IconButton(onClick = onEdit, modifier = Modifier.size(36.dp)) {
-            Icon(imageVector = Icons.Filled.Edit, contentDescription = null)
-        }
-        IconButton(onClick = {
-            onEvent(ReminderListEvent.OnDeleteReminderClick(reminder))
-        }) {
-            androidx.compose.material.Icon(
-                imageVector = Icons.Default.Delete,
-                contentDescription = "Delete"
-            )
+        Row(modifier = Modifier.wrapContentSize(), verticalAlignment = Alignment.CenterVertically) {
+            IconButton(onClick = onEdit, modifier = Modifier.size(36.dp)) {
+                Icon(imageVector = Icons.Filled.Edit, contentDescription = null)
+            }
+            Spacer(modifier = Modifier.width(4.dp))
+            IconButton(onClick = {
+                onEvent(ReminderListEvent.OnDeleteReminderClick(reminder))
+            }) {
+                androidx.compose.material.Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Delete"
+                )
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.levp.dailyreminder.ui.editreminder
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -34,6 +35,7 @@ class EditReminderViewModel @Inject constructor(
 
     init {
         val reminderId = savedStateHandle.get<Int>("reminderId") ?: -1
+        Log.i("hehe","edit VM id = $reminderId")
         if (reminderId != -1) {
             viewModelScope.launch {
                 repository.getReminderById(reminderId)?.let { reminder ->
